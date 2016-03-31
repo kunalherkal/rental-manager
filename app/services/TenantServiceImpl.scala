@@ -1,8 +1,6 @@
 package services
 
-import javax.inject.Inject
-
-import com.google.inject.Singleton
+import com.google.inject.{Inject, Singleton}
 import dao.TenantDao
 import models.Tenant
 

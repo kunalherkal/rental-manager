@@ -14,7 +14,7 @@ import scala.concurrent.Future
   */
 class TenantController @Inject()(tenantService: TenantService, val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
-  def home = Action.async { implicit request =>
+  def dashboard = Action.async { implicit request =>
     tenantService.listAllTenants map {
       tenants => Ok(views.html.tenant(TenantForm.form, tenants))
     }
@@ -26,7 +26,7 @@ class TenantController @Inject()(tenantService: TenantService, val messagesApi: 
       data => {
         val newTenant = Tenant(0, data.firstName, data.lastName, data.mobile, data.email)
         tenantService.addTenant(newTenant).map(res =>
-          Redirect(routes.TenantController.home()).flashing(Messages("flash.success") -> res)
+          Redirect(routes.TenantController.dashboard()).flashing(Messages("flash.success") -> res)
         )
     })
 
@@ -34,7 +34,7 @@ class TenantController @Inject()(tenantService: TenantService, val messagesApi: 
 
   def deleteTenant(id: Long) = Action.async { implicit request =>
     tenantService.deleteTenant(id) map { res =>
-      Redirect(routes.TenantController.home())
+      Redirect(routes.TenantController.dashboard())
 
     }
 

@@ -1,0 +1,122 @@
+@(apartmentForm: Form[models.ApartmentFormData], apartments : Seq[models.Apartment])(implicit request: RequestHeader,messages : Messages)
+@main(Messages("app.name")) {
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>@msg</strong>
+</div>
+}
+<form id="apartment-data-form" role="form" action='@routes.ApartmentController.addApartment()' method="post" class="form-horizontal" align="center">
+
+    <fieldset class="user-fieldset">
+
+        <div class="user-form">
+            <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; text-decoration:none">@messages("Add Apartment")</label>
+        </div>
+        <br/>
+        <table align="center" cellspacing="20">
+            <tr>
+                <td align="left">
+                    <div class="user-form" id="firstName_field_label">
+                        <div class="controls col-xs-offset-3 col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <strong>@messages("Name")</strong> :
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td align="center">
+                    <div class="user-form" id="firstName_field_value">
+                        <div class="controls col-xs-offset-3 col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" id="name" name="name" value="" placeholder="Name" class="form-control input-lg" required>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div class="user-form" id="lastName_field_label">
+                        <div class="controls col-xs-offset-3 col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <strong>@messages("Rooms")</strong> :
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td align="center">
+                    <div class="user-form" id="lastName_field_value">
+                        <div class="controls col-xs-offset-3 col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="number" id="rooms" name="rooms" value="0" class="form-control input-lg" required>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div class="user-form" id="mobile_field_label">
+                        <div class="controls col-xs-offset-3 col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <strong>@messages("Area")</strong> :
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td align="center">
+                    <div class="user-form" id="mobile_field_value">
+                        <div class="controls col-xs-offset-3 col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="number" id="area" name="area" value="0.0" class="form-control input-lg" required>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Add</button>
+        </div>
+
+    </fieldset>
+</form>
+
+<div class="user-display" >
+    <fieldset>
+        <legend align="center"><h3>Apartment</h3></legend>
+        <table cellspacing="20">
+            <tr>
+                <th>@messages("Sr.")</th>
+                <th>@messages("Name")</th>
+                <th>@messages("Rooms")</th>
+                <th>@messages("Area")</th>
+            </tr>
+            @for(apartment <- apartments){
+            <tr>
+                <td>@apartment.id</td>
+                <td>@apartment.name</td>
+                <td>@apartment.rooms</td>
+                <td>@apartment.area</td>
+                <td><a href="@routes.ApartmentController.deleteApartment(apartment.id)">delete</a></td>
+            </tr>
+            }
+        </table>
+    </fieldset>
+</div>
+
+}

@@ -13,6 +13,10 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
-GET     /home                       controllers.TenantController.home
-POST    /add                        controllers.TenantController.addTenant
-GET    /delete/:id                 controllers.TenantController.deleteTenant(id : Long)
+GET     /tenant/dashboard                     controllers.TenantController.dashboard
+POST    /tenant/add                           controllers.TenantController.addTenant
+GET     /tenant/delete/:id                    controllers.TenantController.deleteTenant(id : Long)
+
+GET     /apartment/dashboard                  controllers.ApartmentController.dashboard
+POST    /apartment/add                        controllers.ApartmentController.addApartment
+GET     /apartment/delete/:id                 controllers.ApartmentController.deleteApartment(id : Long)

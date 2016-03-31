@@ -1,7 +1,6 @@
 package dao
 
-import javax.inject.Inject
-import com.google.inject.Singleton
+import com.google.inject.{Inject, Singleton}
 import models.Tenant
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
