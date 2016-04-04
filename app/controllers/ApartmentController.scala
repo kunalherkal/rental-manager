@@ -12,12 +12,14 @@ import scala.concurrent.ExecutionContext.Implicits._
 /**
   * Created by khn3193 on 3/31/16.
   */
-class ApartmentController @Inject()(apartmentService: ApartmentService, val messagesApi: MessagesApi) extends Controller with I18nSupport{
+class ApartmentController @Inject()(apartmentService: ApartmentService, val messagesApi: MessagesApi) extends Controller with I18nSupport with Secured {
 
-  def dashboard = Action.async { implicit request =>
-    apartmentService.listAllApartments map {
-      apartments => Ok(views.html.apartment(ApartmentForm.form, apartments))
-    }
+  def dashboard = IsAuthenticated {
+  username =>
+     implicit request =>
+      apartmentService.listAllApartments map {
+        apartments => Ok(views.html.apartment(ApartmentForm.form, apartments))
+      }
   }
 
   def addApartment() = Action.async { implicit request =>

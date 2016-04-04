@@ -20,3 +20,7 @@ GET     /tenant/delete/:id                    controllers.TenantController.delet
 GET     /apartment/dashboard                  controllers.ApartmentController.dashboard
 POST    /apartment/add                        controllers.ApartmentController.addApartment
 GET     /apartment/delete/:id                 controllers.ApartmentController.deleteApartment(id : Long)
+
+GET     /login                              controllers.AuthenticationController.login
+POST    /login                              controllers.AuthenticationController.authenticate
+GET     /logout                             controllers.AuthenticationController.logout

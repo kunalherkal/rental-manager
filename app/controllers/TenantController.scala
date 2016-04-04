@@ -12,10 +12,12 @@ import scala.concurrent.Future
 /**
   * Created by khn3193 on 3/30/16.
   */
-class TenantController @Inject()(tenantService: TenantService, val messagesApi: MessagesApi) extends Controller with I18nSupport {
+class TenantController @Inject()(tenantService: TenantService, val messagesApi: MessagesApi) extends Controller with I18nSupport with Secured {
 
-  def dashboard = Action.async { implicit request =>
-    tenantService.listAllTenants map {
+  def dashboard = IsAuthenticated {
+    username =>
+     implicit request =>
+      tenantService.listAllTenants map {
       tenants => Ok(views.html.tenant(TenantForm.form, tenants))
     }
   }
@@ -29,7 +31,6 @@ class TenantController @Inject()(tenantService: TenantService, val messagesApi: 
           Redirect(routes.TenantController.dashboard()).flashing(Messages("flash.success") -> res)
         )
     })
-
   }
 
   def deleteTenant(id: Long) = Action.async { implicit request =>
